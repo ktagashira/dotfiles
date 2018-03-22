@@ -11,7 +11,7 @@ if &runtimepath !~# '/dein.vim'
 		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
 	endif
 	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endifendif
+endif
 
 set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 " settings
