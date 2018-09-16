@@ -13,51 +13,61 @@ if &runtimepath !~# '/dein.vim'
 	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
 endif
 
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-" settings
-call dein#begin(expand('~/.vim/dein'))
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc.vim',	{'build': 'make'})
+  let g:config_dir  = expand('~/.vim')
+  let s:toml        = g:config_dir . '/plugins.toml'
+  let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
 
-" FileOpenPlugin
-call dein#add('Shougo/unite.vim')
-" UniteVimのmod
-call dein#add('Shougo/neomru.vim')
+  " TOML 読み込み
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+  " カラースキーム追加
+  call dein#add('tomasr/molokai')
 
-call dein#end()
+  call dein#end()
+  call dein#save_state()
+endif
 
-" 未インストールのプラグインをインストール
+filetype plugin indent on
+syntax enable
+
 if dein#check_install()
 	call dein#install()
 endif
 
-"""""""""""""""""""""""""""""
-" Unite.vimのセットアップ
-"""""""""""""""""""""""""""""
+"""""""""
+"""""""""
 
-let g:unite_enable_start_insert=1
-
-" バッファ一覧
-noremap <C-P> :Unite buffer<CR>
-" ファイル一覧
-noremap <C-N> :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap <C-Z> :Unite file_mru<CR>
-" sourcesを「今開いているファイルのディレクトリ」とする
-noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-""""""""""""""""""""""""""""""
-" 個人設定
+" タブ関連
 set tabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set softtabstop=4
+" インデント
+set autoindent
+" 入力補助系
+inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap ( ()<ESC>i
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+" 行番号表示
+set number
+" カラースキーマ
+set background=dark
+colorscheme molokai
+
+syntax on
+
+" 表示系
+set cursorline
+
+
+" カーソル位置
+set ruler
+
+" 検索系
+set incsearch
+" 挿入からノーマルへ(ESC)
+inoremap <C-j> <Esc>
