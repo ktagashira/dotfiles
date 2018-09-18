@@ -57,7 +57,7 @@ set backspace=indent,eol,start
 set number
 " カラースキーマ
 set background=dark
-colorscheme molokai
+" colorscheme molokai
 
 syntax on
 
