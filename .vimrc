@@ -48,9 +48,9 @@ set softtabstop=4
 " インデント
 set autoindent
 " 入力補助系
-inoremap { {}<Left>
+"inoremap { {}<Left>
 inoremap {<Enter> {}<Left><CR><ESC><S-o>
-inoremap ( ()<ESC>i
+"inoremap ( ()<ESC>i
 inoremap (<Enter> ()<Left><CR><ESC><S-o>
 set backspace=indent,eol,start
 " 行番号表示
