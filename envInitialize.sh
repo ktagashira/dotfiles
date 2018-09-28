@@ -12,11 +12,14 @@ if [ $VIM_VERSION = $OLD_VIM_VERSION ] ; then
     eval ./installVim8.sh
 fi
 
-echo $VIM_VERSION
+
 DOTFILE_DIR=$(cd $(dirname "${BASH_SOURCE:-$0}"); pwd)
 
-ln -sf $DOTFILE_DIR/.vimrc ~/.vimrc
-ln -sf $DOTFILE_DIR/plugins.toml ~/.vim/plugins.toml
-ln -sf $DOTFILE_DIR/plugins_lazy.toml ~/.vim/plugins_lazy.toml
-#ln -sf $DOTFILE_DIR/.bash_profile ~/.bash_proflie
-ln -sf $DOTFILE_DIR/.gitconfig ~/.gitconfig
+for f in .??*
+do
+    [ "$f" = ".git" ] && continue
+    ln -snfv $DOTFILE_DIR/"$f" ~/"$f"
+done
+
+ln -sf $DOTFILE_DIR/plugins.toml "$HOME"/.vim/plugins.toml
+ln -sf $DOTFILE_DIR/plugins_lazy.toml "$HOME"/.vim/plugins_lazy.toml
