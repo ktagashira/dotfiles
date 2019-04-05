@@ -4,11 +4,20 @@
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 
+#### React(jsx) ####
+# syntax highlight
 [[plugins]]
 repo = 'othree/yajs.vim'
 
+# syntax highlight
 [[plugins]]
 repo = 'maxmellon/vim-jsx-pretty'
+
+# closetag
+[[plugins]]
+repo = 'rchaser53/insertclosetag'
+
+####################
 
 [[plugins]]
 repo = 'Shougo/neosnippet.vim'
