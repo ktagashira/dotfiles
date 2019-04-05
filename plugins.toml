@@ -4,5 +4,11 @@
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
 
+[[plugins]]
+repo = 'othree/yajs.vim'
+
+[[plugins]]
+repo = 'maxmellon/vim-jsx-pretty'
+
 #[[plugins]]
 #repo = 'davidhalter/jedi-vim'
