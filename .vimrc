@@ -72,3 +72,6 @@ set ruler
 set incsearch
 " 挿入からノーマルへ(ESC)
 inoremap <C-j> <Esc>
+
+let g:loadedInsertTag = 1
+inoremap <C-c> <Esc>:call InsertClosingTag()<CR>i
