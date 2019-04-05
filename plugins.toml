@@ -10,5 +10,11 @@ repo = 'othree/yajs.vim'
 [[plugins]]
 repo = 'maxmellon/vim-jsx-pretty'
 
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
 #[[plugins]]
 #repo = 'davidhalter/jedi-vim'
