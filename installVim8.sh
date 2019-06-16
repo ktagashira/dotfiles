@@ -9,4 +9,5 @@ git clone https://github.com/vim/vim.git
 cd vim
 make
 sudo make install
+rm -rf vim
 
