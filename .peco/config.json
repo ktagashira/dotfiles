@@ -1,0 +1,28 @@
+{
+    "Keymap": {
+        "Esc": "peco.Cancel",
+        "C-c": "peco.Cancel",
+        "Enter": "peco.Finish",
+        "C-f": "peco.ForwardChar",
+        "C-a": "peco.BeginningOfLine",
+        "C-b": "peco.BackwardChar",
+        "C-d": "peco.DeleteForwardChar",
+        "C-e": "peco.EndOfLine",
+        "C-j": "peco.SelectDown",
+        "C-k": "peco.SelectUp",
+        "C-u": "peco.KillBeginningOfLine",
+        "BS": "peco.DeleteBackwardChar",
+        "C-8": "peco.DeleteBackwardChar",
+        "C-w": "peco.DeleteBackwardWord",
+        "C-g": "peco.SelectNone",
+        "C-n": "peco.SelectDown",
+        "C-p": "peco.SelectUp",
+        "C-r": "peco.RotateFilter",
+        "C-t": "peco.ToggleQuery",
+        "C-Space": "peco.ToggleSelectionAndSelectNext",
+        "ArrowUp": "peco.SelectUp",
+        "ArrowDown": "peco.SelectDown",
+        "ArrowLeft": "peco.ScrollPageUp",
+        "ArrowRight": "peco.ScrollPageDown"
+    }
+}
