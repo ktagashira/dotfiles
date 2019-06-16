@@ -31,5 +31,6 @@ alias p='peco'
 alias sp='$(kgp|p1|p)'
 alias home='ssh -i ~/id_rsa mosin@mosin.jp'
 alias sb='source ~/.bashrc'
+alias vi='/usr/local/bin/vim'
 
 
