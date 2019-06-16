@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # VIMのバージョン確認
-VIM_VERSION=$(/usr/local/bin/vim --version | head -n 1 )
+VIM_VERSION=$($(which vim) --version | head -n 1 )
 # VIMバージョン情報からVerNumだけ抜き出す
 set ${VIM_VERSION}
 VIM_VERSION=${5} 
