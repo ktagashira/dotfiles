@@ -25,5 +25,14 @@ repo = 'Shougo/neosnippet.vim'
 [[plugins]]
 repo = 'Shougo/neosnippet-snippets'
 
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+
 #[[plugins]]
 #repo = 'davidhalter/jedi-vim'
+
+#[[plugins]]
+#repo = 'zxqfl/tabnine-vim'
