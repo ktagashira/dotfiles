@@ -1,0 +1,4 @@
+path=(
+    ~/programfiles
+    $path
+)
