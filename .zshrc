@@ -97,3 +97,4 @@ export NODE_PATH=/Users/mosin/.nodebrew/node/v11.13.0/lib/node_modules
 export PATH=$PATH:$HOME/.ndenv/bin
 
 eval "$(ndenv init -)"
+eval `ssh-agent`
