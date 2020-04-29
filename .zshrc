@@ -90,7 +90,8 @@ alias ..='cd ..'
 alias ns='npm start'
 loop () { for ((i=0;i<$1;i++)); do $2 $3; done }
 
-#export PATH=$PATH:/Users/mosin/.nodebrew/current/bin
+export PATH=$PATH:/Users/mosin/.nodebrew/current/bin
+export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 export PATH=$PATH:/Users/mosin/.flutter-system/flutter/bin
 export NODE_PATH=/Users/mosin/.nodebrew/node/v11.13.0/lib/node_modules
 export PATH=$PATH:$HOME/.ndenv/bin
