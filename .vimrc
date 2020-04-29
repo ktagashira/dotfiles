@@ -77,4 +77,15 @@ let g:loadedInsertTag = 1
 inoremap <C-c> <Esc>:call InsertClosingTag()<CR>i
 
 set encoding=utf-8
-set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_javascript_checkers = ['eslint','tslint']
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+nnoremap <C-C> :w<CR>:SyntasticCheck<CR>

@@ -32,7 +32,13 @@ repo = 'leafgarland/typescript-vim'
 repo = 'prabirshrestha/async.vim'
 
 #[[plugins]]
-#repo = 'davidhalter/jedi-vim'
+#repo = 'zxqfl/tabnine-vim'
 
 #[[plugins]]
-#repo = 'zxqfl/tabnine-vim'
+#repo = 'davidhalter/jedi-vim'
+
+[[plugins]]
+repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'leafgarland/typescript-vim'
