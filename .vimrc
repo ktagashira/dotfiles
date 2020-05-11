@@ -2,43 +2,60 @@
 " dein.vimのセットアップ
 """""""""""""""""""""""""""""
 
-let s:dein_dir = expand('~/.vim/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+"let s:dein_dir = expand('~/.vim/dein')
+"let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 " dein.vimがなければclone
-if &runtimepath !~# '/dein.vim'
-	if !isdirectory(s:dein_repo_dir)
-		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-	endif
-	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-endif
-
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  let g:config_dir  = expand('~/.vim')
-  let s:toml        = g:config_dir . '/plugins.toml'
-  let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
-
-  " TOML 読み込み
-  call dein#load_toml(s:toml,      {'lazy': 0})
-  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-  " カラースキーム追加
-  call dein#add('tomasr/molokai')
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-filetype plugin indent on
-syntax enable
-
-if dein#check_install()
-	call dein#install()
-endif
-
+"if &runtimepath !~# '/dein.vim'
+"	if !isdirectory(s:dein_repo_dir)
+"		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+"
+"	endif
+"	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+"endif
+"
+"if dein#load_state(s:dein_dir)
+"  call dein#begin(s:dein_dir)
+"
+"  let g:config_dir  = expand('~/.vim')
+"  let s:toml        = g:config_dir . '/plugins.toml'
+"  let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
+"
+"  " TOML 読み込み
+"  call dein#load_toml(s:toml,      {'lazy': 0})
+"  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+"  " カラースキーム追加
+"  call dein#add('tomasr/molokai')
+"
+"  call dein#end()
+"  call dein#save_state()
+"endif
+"
+"filetype plugin indent on
+"syntax enable
+"
+"if dein#check_install()
+"	call dein#install()
+"endif
+"
 """""""""
 """""""""
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'tomasr/molokai'
+Plug 'leafgarland/typescript-vim'
+Plug 'clausreinke/typescript-tools'
+
+call plug#end()
 
 " タブ関連
 set tabstop=4
