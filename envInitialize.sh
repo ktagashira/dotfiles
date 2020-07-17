@@ -21,5 +21,6 @@ do
     ln -snfv $DOTFILE_DIR/"$f" ~/"$f"
 done
 
+mkdir -p "$HOME"/.vim
 ln -sf $DOTFILE_DIR/plugins.toml "$HOME"/.vim/plugins.toml
 ln -sf $DOTFILE_DIR/plugins_lazy.toml "$HOME"/.vim/plugins_lazy.toml
