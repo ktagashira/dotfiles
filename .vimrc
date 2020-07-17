@@ -1,46 +1,3 @@
-"""""""""""""""""""""""""""""
-" dein.vimのセットアップ
-"""""""""""""""""""""""""""""
-
-"let s:dein_dir = expand('~/.vim/dein')
-"let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-" dein.vimがなければclone
-"if &runtimepath !~# '/dein.vim'
-"	if !isdirectory(s:dein_repo_dir)
-"		execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-"
-"	endif
-"	execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
-"endif
-"
-"if dein#load_state(s:dein_dir)
-"  call dein#begin(s:dein_dir)
-"
-"  let g:config_dir  = expand('~/.vim')
-"  let s:toml        = g:config_dir . '/plugins.toml'
-"  let s:lazy_toml   = g:config_dir . '/plugins_lazy.toml'
-"
-"  " TOML 読み込み
-"  call dein#load_toml(s:toml,      {'lazy': 0})
-"  call dein#load_toml(s:lazy_toml, {'lazy': 1})
-"  " カラースキーム追加
-"  call dein#add('tomasr/molokai')
-"
-"  call dein#end()
-"  call dein#save_state()
-"endif
-"
-"filetype plugin indent on
-"syntax enable
-"
-"if dein#check_install()
-"	call dein#install()
-"endif
-"
-"""""""""
-"""""""""
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -52,8 +9,25 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tomasr/molokai'
+Plug 'Shougo/neocomplete.vim'
+Plug 'pangloss/vim-javascript'
+
+" markdown
+"Plug 'plasticboy/vim-markdown'
+"Plug 'suan/vim-instant-markdown'
+", { 'for': 'markdown'}
+
+" TSX
+"Plug 'clausreinke/typescript-tools.vim'
+", { 'do': 'npm install' }
+"Plug 'clausreinke/typescript-tools'
+"
 Plug 'leafgarland/typescript-vim'
-Plug 'clausreinke/typescript-tools'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'alvan/vim-closetag'
+
+"Plug 'yuezk/vim-js'
+"Plug 'MaxMEllon/vim-jsx-pretty'
 
 call plug#end()
 
@@ -72,15 +46,39 @@ inoremap (<Enter> ()<Left><CR><ESC><S-o>
 set backspace=indent,eol,start
 " 行番号表示
 set number
-" カラースキーマ
-set background=dark
-colorscheme molokai
 
-syntax on
+autocmd ColorScheme * hi tsxTagName ctermfg=9
+
+" orange
+"autocmd ColorScheme * hi tsxCloseString ctermfg=202
+autocmd ColorScheme * hi tsxCloseTag ctermfg=118
+autocmd ColorScheme * hi tsxCloseTagName ctermfg=202
+autocmd ColorScheme * hi tsxAttributeBraces ctermfg=118
+autocmd ColorScheme * hi tsxEqual ctermfg=202
+
+" yellow
+"autocmd ColorScheme * hi tsxAttrib ctermfg=208 cterm=italic
+
+" light-grey
+autocmd ColorScheme * hi tsxTypeBraces ctermfg=247
+" dark-grey
+autocmd ColorScheme * hi tsxTypes ctermfg=237
+
+autocmd ColorScheme * hi ReactState ctermfg=92
+autocmd ColorScheme * hi ReactProps ctermfg=138
+autocmd ColorScheme * hi ApolloGraphQL ctermfg=131
+autocmd ColorScheme * hi Events ctermfg=204 
+autocmd ColorScheme * hi ReduxKeywords ctermfg=204 
+autocmd ColorScheme * hi ReduxHooksKeywords ctermfg=204 
+autocmd ColorScheme * hi WebBrowser ctermfg=204 
+autocmd ColorScheme * hi ReactLifeCycleMethods ctermfg=204 
+
+" カラースキーマ
+"set background=dark
+colorscheme molokai
 
 " 表示系
 set cursorline
-
 
 " カーソル位置
 set ruler
@@ -106,3 +104,86 @@ let g:syntastic_javascript_checkers = ['eslint','tslint']
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 nnoremap <C-C> :w<CR>:SyntasticCheck<CR>
+
+" neocomplete
+" highlight Pmenu ctermbg=4
+highlight PmenuSel ctermbg=1
+highlight PMenuSbar ctermbg=4
+
+" 補完ウィンドウの設定
+set completeopt=menuone
+
+" 補完ウィンドウの設定
+set completeopt=menuone
+
+" rsenseでの自動補完機能を有効化
+let g:rsenseUseOmniFunc = 1
+" let g:rsenseHome = '/usr/local/lib/rsense-0.3'
+
+" auto-ctagsを使ってファイル保存時にtagsファイルを更新
+let g:auto_ctags = 1
+
+" 起動時に有効化
+let g:neocomplcache_enable_at_startup = 1
+
+" 大文字が入力されるまで大文字小文字の区別を無視する
+let g:neocomplcache_enable_smart_case = 1
+
+" _(アンダースコア)区切りの補完を有効化
+let g:neocomplcache_enable_underbar_completion = 1
+
+let g:neocomplcache_enable_camel_case_completion  =  1
+
+" 最初の補完候補を選択状態にする
+let g:neocomplcache_enable_auto_select = 1
+
+" ポップアップメニューで表示される候補の数
+let g:neocomplcache_max_list = 20
+
+" シンタックスをキャッシュするときの最小文字長
+let g:neocomplcache_min_syntax_length = 3
+
+" 補完の設定
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
+
+if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+let g:instant_markdown_autostart=1
+set shell=bash\ -i
+
+" 自動閉じタグ設定
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.tsx,*jsx"
+
+" vim-sx-script 設定
+" jsx含める
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+
+filetype plugin on
+syntax enable
+syntax on
+
+set laststatus=2
+set statusline=%y
+
+" カーソル下のhighlight情報を表示する {{{
+function! s:get_syn_id(transparent)
+    let synid = synID(line('.'), col('.'), 1)
+    return a:transparent ? synIDtrans(synid) : synid
+endfunction
+function! s:get_syn_name(synid)
+    return synIDattr(a:synid, 'name')
+endfunction
+function! s:get_highlight_info()
+    execute "highlight " . s:get_syn_name(s:get_syn_id(0))
+    execute "highlight " . s:get_syn_name(s:get_syn_id(1))
+endfunction
+command! HInfo call s:get_highlight_info()
+

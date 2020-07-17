@@ -1,56 +1,22 @@
-export LANG=ja_JP.UTF-8
-PROMPT="[%n@%m %~]$ "
-bindkey -v
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-setopt no_beep
-setopt no_hist_beep
-setopt no_list_beep
-setopt correct
-
-autoload -Uz colors
-colors
-
-#PROMPT="%{$fg[green]%}%m%(!.#.$) %{$reset_color%}"
-#PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
-#SPROMPT="%{$fg[red]%}correct: %R -> %r [nyae]? %{$reset_color%}"
-##RPROMPT="%{$fg[cyan]%}[%~]%{$reset_color%}"
-
-export CLICOLOR=true
-export LSCOLORS='exfxcxdxbxGxDxabagacad'
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
-
-HISTFILE=~/.zsh_history
-
-HISTSIZE=10000
-SAVEHIST=10000
-
-# 直前のコマンドの重複を削除
-setopt hist_ignore_dups
-
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-
-# 同時に起動したzshの間でヒストリを共有
-setopt share_history
-
-# 全履歴を一覧表示
-function history-all { history -E 1 }
-
-# Zshの拡張ライブラリのPATH設定
-if [ -e /usr/local/share/zsh-completions ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# 補完機能を有効にする
-autoload -Uz compinit && compinit -u
+# Source Zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
-# 補完候補を一覧を表示
-setopt auto_list
+# Customize to your needs...
 
-# 補完メニューをカーソルで選択可能にする
-zstyle ':completion:*:default' menu select=1
-
-alias ll='ls -l'
+alias ll='ls -al'
 alias today='date "+%Y%m%d"'
 alias now='date "+%Y%m%d-%H%M%S"'
 alias d='docker'
@@ -59,6 +25,7 @@ alias dcr='dc down && dc up -d'
 alias gco='git co $(git b | peco)'
 #alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
 alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push origin'
+alias g='git'
 
 alias gr='git remote'
 alias gs='git status'
@@ -95,6 +62,69 @@ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 export PATH=$PATH:/Users/mosin/.flutter-system/flutter/bin
 export NODE_PATH=/Users/mosin/.nodebrew/node/v11.13.0/lib/node_modules
 export PATH=$PATH:$HOME/.ndenv/bin
+export PATH=$PATH:/usr/local/opt
+
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
 
 eval "$(ndenv init -)"
-eval `ssh-agent`
+#eval `ssh-agent`
+
+bindkey -v
+
+# マッチしたコマンドのヒストリを表示できるようにする
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+# Ctrl+rでhistoryからあいまい検索できる(peco)
+function peco-history-selection() {
+  BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout bottom-up`
+  CURSOR=$#BUFFER
+  echo
+  zle redisplay
+}
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+function get-repo() {
+  return $(ghq list | peco --layout bottom-up)
+}
+
+# ghqとpecoでリポジトリを検索
+function ghq-repository-selection() {
+ #targetDir=`get-repo`
+ targetDir=$(ghq list | peco --layout bottom-up)
+ if [ -n "${targetDir}" ]; then
+         cd $(ghq root)/${targetDir}
+ fi
+ echo 
+ zle reset-prompt
+}
+zle -N ghq-repository-selection
+bindkey '^G' ghq-repository-selection
+
+# ghqとpecoでリポジトリに遷移
+function open-repository-selection() {
+ targetDir=$(ghq list | peco --layout bottom-up)
+ echo ${targetDir}
+ if [ -n "${targetDir}" ]; then
+    open -a '/Applications/Google Chrome.app' https://${targetDir}
+ fi
+ echo 
+ zle reset-prompt
+}
+zle -N open-repository-selection
+bindkey '^O' open-repository-selection
+
+zplug "mafredri/zsh-async", from:github
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "sindresorhus/pure"
+zplug "zsh-users/zsh-autosuggestions"
+
+if ! zplug check --verbose; then
+    zplug install
+fi
+
+zplug load
