@@ -29,6 +29,7 @@ alias g='git'
 
 alias gr='git remote'
 alias gs='git status'
+alias gd='git diff'
 alias gcf='git clean -f'
 alias gc='git checkout'
 alias gb='git branch'
@@ -67,8 +68,7 @@ export PATH=$PATH:/usr/local/opt
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
-eval "$(ndenv init -)"
-#eval `ssh-agent`
+eval "$(nodenv init -)"
 
 bindkey -v
 

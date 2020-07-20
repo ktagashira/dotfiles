@@ -11,7 +11,7 @@
 	trustExitCode = true
 [user]
 	email = ryoctrl@gmail.com
-	name = ryoctrl@gmail.com
+	name = ryoctrl
 [http]
     postBuffer = 512M
 [core]

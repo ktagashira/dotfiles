@@ -24,5 +24,5 @@ done
 mkdir -p "$HOME"/.vim
 ln -sf $DOTFILE_DIR/plugins.toml "$HOME"/.vim/plugins.toml
 ln -sf $DOTFILE_DIR/plugins_lazy.toml "$HOME"/.vim/plugins_lazy.toml
-
-ln -sf $DOTFILE_DIR/.ssh "$HOME"/.ssh
+ 
+ls  $DOTFILE_DIR/.ssh/  | xargs -I{} ln -s $DOTFILE_DIR/.ssh/{} "$HOME"/.ssh/{}
