@@ -1,20 +1,6 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
 # Source Zplug
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
-
-# Customize to your needs...
 
 alias ll='ls -al'
 alias today='date "+%Y%m%d"'
@@ -23,8 +9,7 @@ alias d='docker'
 alias dc='docker-compose'
 alias dcr='dc down && dc up -d'
 alias gco='git co $(git b | peco)'
-#alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
-alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push origin'
+alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
 alias g='git'
 
 alias gr='git remote'
