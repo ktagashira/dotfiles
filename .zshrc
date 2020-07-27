@@ -1,15 +1,3 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
 # Source Zplug
 
 if [[ -s "/usr/local/opt/zplug" ]]; then
@@ -29,13 +17,13 @@ alias d='docker'
 alias dc='docker-compose'
 alias dcr='dc down && dc up -d'
 alias gco='git co $(git b | peco)'
-#alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
-alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push origin'
 alias gp='git pull'
+alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
 alias g='git'
 
 alias gr='git remote'
 alias gs='git status'
+alias gd='git diff'
 alias gcf='git clean -f'
 alias gc='git checkout'
 alias gb='git branch'
@@ -55,7 +43,7 @@ alias ke='kubectl exec'
 alias p1='awk '"'"'{print $1}'"'"''
 alias p='peco'
 alias sp='$(kgp|p1|p)'
-alias home='ssh -i ~/sshPasskey/koetsuki.pem mosin@mosin.jp'
+alias home='ssh mosin.jp'
 alias eclcore='ssh core@192.168.32.102'
 alias sb='source ~/.bashrc'
 alias vi='vim'
@@ -74,8 +62,8 @@ export PATH=$PATH:/usr/local/opt
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
-if type "ndenv" > /dev/null 2>&1; then
-    eval "$(ndenv init -)"
+if type "nodenv" > /dev/null 2>&1; then
+    eval "$(nodenv init -)"
 fi
 
 bindkey -v
