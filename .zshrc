@@ -11,10 +11,16 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Source Zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
 
-# Customize to your needs...
+if [[ -s "/usr/local/opt/zplug" ]]; then
+    export ZPLUG_HOME=/usr/local/opt/zplug
+elif [[ -s "/home/linuxbrew/.linuxbrew/opt/zplug" ]]; then
+    export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+fi
+
+if [[ -s "${ZPLUG_HOME}/init.zsh" ]]; then
+    source $ZPLUG_HOME/init.zsh
+fi
 
 alias ll='ls -al'
 alias today='date "+%Y%m%d"'
@@ -25,6 +31,7 @@ alias dcr='dc down && dc up -d'
 alias gco='git co $(git b | peco)'
 #alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
 alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push origin'
+alias gp='git pull'
 alias g='git'
 
 alias gr='git remote'
@@ -67,8 +74,9 @@ export PATH=$PATH:/usr/local/opt
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
-eval "$(ndenv init -)"
-#eval `ssh-agent`
+if type "ndenv" > /dev/null 2>&1; then
+    eval "$(ndenv init -)"
+fi
 
 bindkey -v
 
@@ -118,13 +126,21 @@ function open-repository-selection() {
 zle -N open-repository-selection
 bindkey '^O' open-repository-selection
 
-zplug "mafredri/zsh-async", from:github
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "sindresorhus/pure"
-zplug "zsh-users/zsh-autosuggestions"
 
-if ! zplug check --verbose; then
-    zplug install
+if type "kubectl" > /dev/null 2>&1; then
+    source <(kubectl completion zsh)
 fi
 
-zplug load
+if type "zplug" > /dev/null 2>&1; then
+    zplug "mafredri/zsh-async", from:github
+    zplug "zsh-users/zsh-syntax-highlighting", defer:2
+    zplug "sindresorhus/pure"
+    zplug "zsh-users/zsh-autosuggestions"
+
+    if ! zplug check --verbose; then
+        zplug install
+    fi
+
+    zplug load
+fi
+
