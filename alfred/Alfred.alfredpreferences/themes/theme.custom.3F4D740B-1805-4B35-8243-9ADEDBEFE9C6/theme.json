@@ -1,0 +1,61 @@
+{
+  "alfredtheme" : {
+    "result" : {
+      "textSpacing" : 4,
+      "subtext" : {
+        "size" : 11,
+        "colorSelected" : "#FFFFFFCB",
+        "font" : "Avenir",
+        "color" : "#FFFFFF7F"
+      },
+      "shortcut" : {
+        "size" : 20,
+        "colorSelected" : "#FFFFFFFF",
+        "font" : "Avenir",
+        "color" : "#FFFFFF59"
+      },
+      "backgroundSelected" : "#1D6488FF",
+      "text" : {
+        "size" : 19,
+        "colorSelected" : "#FFFFFFE8",
+        "font" : "Avenir",
+        "color" : "#FFFFFFDB"
+      },
+      "iconPaddingHorizontal" : 12,
+      "paddingVertical" : 7,
+      "iconSize" : 38
+    },
+    "search" : {
+      "paddingVertical" : 0,
+      "background" : "#00000000",
+      "spacing" : 0,
+      "text" : {
+        "size" : 27,
+        "colorSelected" : "#FFFFFFFF",
+        "font" : "Avenir",
+        "color" : "#FFFFFFFF"
+      },
+      "backgroundSelected" : "#144863FF"
+    },
+    "window" : {
+      "color" : "#272727F1",
+      "paddingHorizontal" : 0,
+      "width" : 683,
+      "borderPadding" : 0,
+      "borderColor" : "#0000003F",
+      "blur" : 15,
+      "roundness" : 5,
+      "paddingVertical" : 5
+    },
+    "credit" : "mosin",
+    "separator" : {
+      "color" : "#CBCBCBF3",
+      "thickness" : 0
+    },
+    "scrollbar" : {
+      "color" : "#1D6488FF",
+      "thickness" : 2
+    },
+    "name" : "Custom"
+  }
+}
