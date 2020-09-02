@@ -34,14 +34,20 @@ alias kdp='kubectl delete pods'
 alias kdd='kubectl delete deployments'
 alias ka='kubectl apply'
 alias kaf='kubectl apply -f'
+alias kc='kubectl config'
+alias kcc='kubectl config current-context'
 alias kg='kubectl get'
-alias kgp='kubectl get pods'
+alias kgp='kubectl get pods -o wide'
 alias kgd='kubectl get deployments'
 alias kgs='kubectl get services'
 alias kgn='kubectl get node'
 alias ke='kubectl exec'
+alias b='bpctl'
+alias b2='bpctl2'
 alias p1='awk '"'"'{print $1}'"'"''
 alias p='peco'
+alias pc='pbcopy'
+alias pp='pbpaste'
 alias sp='$(kgp|p1|p)'
 alias home='ssh mosin.jp'
 alias eclcore='ssh core@192.168.32.102'
@@ -67,8 +73,35 @@ if type "nodenv" > /dev/null 2>&1; then
 fi
 
 bindkey -v
+bindkey "^?" backward-delete-char
+
+# 履歴共有
+setopt share_history
 
 # マッチしたコマンドのヒストリを表示できるようにする
+# # ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
+setopt hist_ignore_all_dups
+
+# スペースで始まるコマンド行はヒストリリストから削除
+setopt hist_ignore_space
+
+# ヒストリを呼び出してから実行する間に一旦編集可能
+setopt hist_verify
+
+# 余分な空白は詰めて記録
+setopt hist_reduce_blanks
+
+# 古いコマンドと同じものは無視
+setopt hist_save_no_dups
+
+# historyコマンドは履歴に登録しない
+setopt hist_no_store
+
+# 補完時にヒストリを自動的に展開
+setopt hist_expand
+
+# 履歴をインクリメンタルに追加
+setopt inc_append_history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
@@ -122,7 +155,7 @@ fi
 if type "zplug" > /dev/null 2>&1; then
     zplug "mafredri/zsh-async", from:github
     zplug "zsh-users/zsh-syntax-highlighting", defer:2
-    zplug "sindresorhus/pure"
+    zplug "sindresorhus/pure" 
     zplug "zsh-users/zsh-autosuggestions"
 
     if ! zplug check --verbose; then
@@ -131,4 +164,18 @@ if type "zplug" > /dev/null 2>&1; then
 
     zplug load
 fi
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/ryofuji/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryofuji/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ryofuji/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryofuji/google-cloud-sdk/completion.zsh.inc'; fi
+
+autoload -U promptinit; promptinit
+
+zstyle :prompt:pure:path color cyan
+
+source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+PROMPT='$(kube_ps1)'$PROMPT
+PURE_PROMPT_SYMBOL=" $ "
 
