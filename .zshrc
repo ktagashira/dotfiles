@@ -147,6 +147,20 @@ function open-repository-selection() {
 zle -N open-repository-selection
 bindkey '^O' open-repository-selection
 
+zplug "mafredri/zsh-async", from:github
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "sindresorhus/pure"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+
+#: "cd先のディレクトリのファイル一覧を表示する" && {
+#  [ -z "$ENHANCD_ROOT" ] && function chpwd { tree -L 1 } # enhancdがない場合
+#  [ -z "$ENHANCD_ROOT" ] || export ENHANCD_HOOK_AFTER_CD="tree -L 1" # enhancdがあるときはそのHook機構を使う
+#}
+
+#: "sshコマンド補完を~/.ssh/configから行う" && {
+#  function _ssh { compadd $(fgrep 'Host ' ~/.ssh/*/config | grep -v '*' |  awk '{print $2}' | sort) }
+#}
 
 if type "kubectl" > /dev/null 2>&1; then
     source <(kubectl completion zsh)
