@@ -193,3 +193,25 @@ source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
 PROMPT='$(kube_ps1)'$PROMPT
 PURE_PROMPT_SYMBOL=" $ "
 
+open-alias() {
+    if [ -z "$RBUFFER" ] ; then
+        open-alias-aux
+    else
+        zle end-of-line
+    fi
+}
+
+open-alias-aux() {
+    str=${LBUFFER%% }
+    bp=$str
+    str=${str##* }
+    targets=`alias ${str}`
+    if [ $targets ]; then
+        cmd=`echo $targets|cut -d"=" -f2`
+        LBUFFER=${cmd//\'/}
+    fi
+}
+
+zle -N open-alias
+#bindkey "^E" end-of-line
+bindkey "^E" open-alias
