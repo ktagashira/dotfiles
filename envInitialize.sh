@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # VIMのバージョン確認
 VIM_VERSION=$($(which vim) --version | head -n 1 )
