@@ -185,13 +185,14 @@ if [ -f '/Users/ryofuji/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ryofuji
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ryofuji/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ryofuji/google-cloud-sdk/completion.zsh.inc'; fi
 
+
 autoload -U promptinit; promptinit
 
 zstyle :prompt:pure:path color cyan
 
 source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
 PROMPT='$(kube_ps1)'$PROMPT
-PURE_PROMPT_SYMBOL=" $ "
+PURE_PROMPT_SYMBOL="$"
 
 open-alias() {
     if [ -z "$RBUFFER" ] ; then
