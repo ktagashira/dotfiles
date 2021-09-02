@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>customSites</key>
+	<dict>
+		<key>5D951659-9C6F-46C2-874F-F5A17BF7DC43</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>yt</string>
+			<key>text</key>
+			<string>yt</string>
+			<key>url</key>
+			<string>https://www.youtube.com/results?search_query={query}</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+		<key>CE930776-7C5A-4631-922F-3A54A626E5AD</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>hm</string>
+			<key>text</key>
+			<string>hackmd</string>
+			<key>url</key>
+			<string>https://hackmd.io/new</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
