@@ -16,3 +16,4 @@
     postBuffer = 512M
 [core]
 	editor = vim
+	hooksPath = /Users/mosin/.githooks
