@@ -18,7 +18,7 @@ alias dc='docker-compose'
 alias dcr='dc down && dc up -d'
 alias gco='git co $(git b | peco)'
 alias gp='git pull'
-alias gpc='gb | grep '\''*'\'' | awk '\''{print $2}'\'' | xargs git push $(git remote | peco)'
+alias gpc='git push -u $(git remote | peco) $(git branch --show-current)'
 alias g='git'
 
 alias gr='git remote'
@@ -64,6 +64,7 @@ export PATH=$PATH:/Users/mosin/.flutter-system/flutter/bin
 export NODE_PATH=/Users/mosin/.nodebrew/node/v11.13.0/lib/node_modules
 export PATH=$PATH:$HOME/.ndenv/bin
 export PATH=$PATH:/usr/local/opt
+export PATH=$HOME/.composer/vendor/bin:/$PATH
 
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -216,3 +217,20 @@ open-alias-aux() {
 zle -N open-alias
 #bindkey "^E" end-of-line
 bindkey "^E" open-alias
+
+zplug load
+
+yq() {
+    docker run --rm -i -v ${PWD}:/workdir mikefarah/yq yq $@
+}
+
+export EDITOR=vim
+eval "$(direnv hook zsh)"
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+if [ -e ${HOME}/.tokens ]; then 
+    source $HOME/.tokens
+fi
+
