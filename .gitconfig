@@ -10,10 +10,15 @@
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	email = ryoctrl@gmail.com
-	name = ryoctrl
+	email = k-tagashira@wevnal.co.jp
+	name = ktagashira
 [http]
     postBuffer = 512M
 [core]
 	editor = vim
-	hooksPath = /Users/mosin/.githooks
+	hooksPath = /Users/tagashirakeisuke/.githooks
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

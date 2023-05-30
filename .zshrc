@@ -247,3 +247,6 @@ if [ -f '/Users/FujiiRyo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/
 if type "op" > /dev/null 2>&1; then
     eval "$(op completion zsh)"; compdef _op op
 fi
+export PATH="$HOME/bin:$PATH"
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
