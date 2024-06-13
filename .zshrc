@@ -75,6 +75,15 @@ function open-repository-selection() {
 }
 zle -N open-repository-selection
 bindkey '^O' open-repository-selection
+
+# pecoでgoogle cloudのプロジェクトを遷移
+function gpr {
+  project=$(gcloud config configurations list --format=json | jq -r '.[].name' | peco)
+  gcloud config configurations activate ${project}
+}
+zle -N gpr
+bindkey '^E' gpr
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
