@@ -1,7 +1,29 @@
 {
-    "workbench.startupEditor": "newUntitledFile",
-    "editor.formatOnSave": true,
-    "json.format.enable": false,
-    "workbench.colorTheme": "Dark Party",
-    "workbench.iconTheme": "material-icon-theme"
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[shellscript]": {
+    "editor.formatOnSave": false
+  },
+  "[jinja-sql]": {
+    "editor.defaultFormatter": "dorzey.vscode-sqlfluff",
+    "editor.formatOnSave": false
+  },
+  "python.analysis.importFormat": "relative",
+  "python.analysis.enablePytestSupport": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "dbt.fileNameTemplateGenerateModel": "{prefix}_{tableName}",
+  "files.associations": {
+    "*.sql": "jinja-sql"
+  },
+  "sqlfluff.config": "${workspaceFolder}/.sqlfluff",
+  "sqlfluff.experimental.format.executeInTerminal": true,
+  "sqlfluff.linter.run": "onSave",
+  "sqlfluff.executablePath": "${workspaceFolder}/.venv/bin/sqlfluff",
+  "dbt.prefixGenerateModel": "stg",
+  "http.proxyStrictSSL": false
 }
