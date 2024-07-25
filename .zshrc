@@ -2,6 +2,27 @@ export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
 export PATH=$HOME/.nodebrew/current/bin:$PATH
 
+# kubectlのalias
+alias k='kubectl'
+alias kd='kubectl describe'
+alias kdp='kubectl describe pods'
+alias kdd='kubectl describe deployments'
+alias ka='kubectl apply'
+alias kaf='kubectl apply -f'
+alias kc='kubectx | peco | xargs kubectx'
+alias kcc='kubectl config current-context'
+alias kg='kubectl get'
+alias kgp='kubectl get pods -o wide'
+alias kgd='kubectl get deployments'
+alias kgs='kubectl get services'
+alias kgn='kubectl get node'
+alias kgi='kubectl get ingress'
+alias kging='kubectl get ingress'
+alias kgcj='kubectl get cronjob'
+alias kgj='kubectl get job'
+alias ke='kubectl exec -it'
+alias kn='kubens | peco | xargs kubens'
+
 alias ll='ls -al'
 alias today='date "+%Y%m%d"'
 alias now='date "+%Y%m%d-%H%M%S"'
@@ -20,6 +41,9 @@ alias gcf='git clean -f'
 alias gc='git checkout'
 alias gb='git branch'
 alias gl='git log'
+alias gcz='git cz --disable-emoji'
+
+alias tf='terraform'
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/f-sy-h/F-Sy-H.plugin.zsh
@@ -30,19 +54,23 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUPSTREAM=auto
 
-setopt PROMPT_SUBST ; PS1='%F{green}%n@%m%f: %F{cyan}%~%f %F{red}$(__git_ps1 "(%s)")%f
+setopt PROMPT_SUBST
+PS1='%F{green}%n@%m%f: %F{cyan}%~%f %F{red}$(__git_ps1 "(%s)")%f
 \$ '
 
-setopt hist_ignore_all_dups  # 重複するコマンド行は古い方を削除
-setopt hist_ignore_dups      # 直前と同じコマンドラインはヒストリに追加しない
-setopt share_history         # コマンド履歴ファイルを共有する
-setopt append_history        # 履歴を追加 (毎回 .zsh_history を作るのではなく)
-setopt inc_append_history    # 履歴をインクリメンタルに追加
-setopt hist_no_store         # historyコマンドは履歴に登録しない
-setopt hist_reduce_blanks    # 余分な空白は詰めて記録
+setopt hist_ignore_all_dups # 重複するコマンド行は古い方を削除
+setopt hist_ignore_dups     # 直前と同じコマンドラインはヒストリに追加しない
+setopt share_history        # コマンド履歴ファイルを共有する
+setopt append_history       # 履歴を追加 (毎回 .zsh_history を作るのではなく)
+setopt inc_append_history   # 履歴をインクリメンタルに追加
+setopt hist_no_store        # historyコマンドは履歴に登録しない
+setopt hist_reduce_blanks   # 余分な空白は詰めて記録
+
+source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+PROMPT='$(kube_ps1)'$PROMPT
 
 function peco-history-selection() {
-  BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco --layout bottom-up`
+  BUFFER=$(history -n 1 | tail -r | awk '!a[$0]++' | peco --layout bottom-up)
   CURSOR=$#BUFFER
   echo
   zle redisplay
@@ -52,31 +80,29 @@ bindkey '^R' peco-history-selection
 
 # ghqとpecoでリポジトリを検索
 function ghq-repository-selection() {
- #targetDir=`get-repo`
- targetDir=$(ghq list | peco --layout bottom-up)
- if [ -n "${targetDir}" ]; then
-         cd $(ghq root)/${targetDir}
- fi
- echo 
- zle reset-prompt
+  #targetDir=`get-repo`
+  targetDir=$(ghq list | peco --layout bottom-up)
+  if [ -n "${targetDir}" ]; then
+    cd $(ghq root)/${targetDir}
+  fi
+  echo
+  zle reset-prompt
 }
 zle -N ghq-repository-selection
 bindkey '^G' ghq-repository-selection
-
 # ghqとpecoでリポジトリに遷移
 function open-repository-selection() {
- targetDir=$(ghq list | peco --layout bottom-up)
- echo ${targetDir}
- if [ -n "${targetDir}" ]; then
+  targetDir=$(ghq list | peco --layout bottom-up)
+  echo ${targetDir}
+  if [ -n "${targetDir}" ]; then
     open -a '/Applications/Google Chrome.app' https://${targetDir}
- fi
- echo 
- zle reset-prompt
+  fi
+  echo
+  zle reset-prompt
 }
 zle -N open-repository-selection
 bindkey '^O' open-repository-selection
 
-# pecoでgoogle cloudのプロジェクトを遷移
 function gpr {
   project=$(gcloud config configurations list --format=json | jq -r '.[].name' | peco)
   gcloud config configurations activate ${project}
@@ -89,3 +115,5 @@ if [ -f '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/path.zsh.inc' ]; th
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+source "$HOME/.rye/env"
