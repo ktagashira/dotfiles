@@ -23,13 +23,16 @@ alias kgj='kubectl get job'
 alias ke='kubectl exec -it'
 alias kn='kubens | peco | xargs kubens'
 
+alias cd2='cd ../../'
+alias cd3='cd ../../../'
+
 alias ll='ls -al'
 alias today='date "+%Y%m%d"'
 alias now='date "+%Y%m%d-%H%M%S"'
 alias d='docker'
-alias dc='docker-compose'
+alias dc='docker compose'
 alias dcr='dc down && dc up -d'
-alias gco='git co $(git b | peco)'
+alias gco='gc $(gb | peco)'
 alias gp='git pull'
 alias gpc='git push -u $(git remote | peco) $(git branch --show-current)'
 alias g='git'
@@ -42,8 +45,12 @@ alias gc='git checkout'
 alias gb='git branch'
 alias gl='git log'
 alias gcz='git cz --disable-emoji'
+alias gac="git aicommit"
 
 alias tf='terraform'
+alias ccsw='claude-code-spec-workflow'
+
+alias ccmcp='claude --mcp-config=/Users/tagashira.keisuke/.claude/.mcp.json'
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/f-sy-h/F-Sy-H.plugin.zsh
@@ -117,3 +124,12 @@ if [ -f '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/path.zsh.inc' ]; th
 if [ -f '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tagashira.keisuke/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
 source "$HOME/.rye/env"
+
+eval "$(direnv hook zsh)"
+. "$HOME/.local/bin/env"
+
+# Added by dbt installer
+export PATH="$PATH:/Users/tagashira.keisuke/.local/bin"
+
+# dbt aliases
+alias dbtf=/Users/tagashira.keisuke/.local/bin/dbt
