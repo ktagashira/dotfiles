@@ -1,0 +1,16 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "includeCoAuthoredBy": false,
+  "enabledPlugins": {
+    "findy-development-plugin@Marcus": true,
+    "dbt@dbt-agent-marketplace": true,
+    "example-skills@anthropic-agent-skills": true,
+    "findy-data-engineering-plugin@Marcus": true
+  },
+  "effortLevel": "high",
+  "feedbackSurveyState": {
+    "lastShownTime": 1754037146513
+  }
+}
